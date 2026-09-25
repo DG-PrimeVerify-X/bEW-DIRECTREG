@@ -7,7 +7,7 @@
   <meta name="robots" content="index,follow">
   <title>VeerGame — Official Website</title>
 
-  <!-- Meta Pixel Code -->
+  <!-- Meta Pixel -->
   <script>
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -19,64 +19,73 @@
   'https://connect.facebook.net/en_US/fbevents.js');
 
   fbq('init', '1772893023836805');
-
-  // Browser + Server CAPI use the same event_id so Meta can deduplicate
-  // the PageView event.
-  (function () {
-    var eventId = (window.crypto && crypto.randomUUID)
-      ? crypto.randomUUID()
-      : ('pv_' + Date.now() + '_' + Math.random().toString(36).slice(2));
-
-    window.__veergamePageViewEventId = eventId;
-    fbq('track', 'PageView', {}, { eventID: eventId });
-
-    // Same-origin Vercel Serverless Function -> Meta Conversions API.
-    fetch('/api/capi', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        event_name: 'PageView',
-        event_id: eventId,
-        event_source_url: window.location.href,
-        action_source: 'website'
-      }),
-      keepalive: true
-    }).catch(function () {
-      // Do not block the page if server-side tracking is unavailable.
-    });
-  })();
+  fbq('track', 'PageView');
   </script>
+
   <noscript>
     <img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=1772893023836805&ev=PageView&noscript=1">
   </noscript>
-  <!-- End Meta Pixel Code -->
+  <!-- End Meta Pixel -->
 
   <style>
-    :root{--bg:#07111f;--card:#0d1b2e;--text:#f7fbff;--muted:#a9b8ca;--accent:#36d1ff;--accent2:#7b61ff}
+    :root{
+      --bg:#07111f;--card:#0d1b2e;--text:#f7fbff;--muted:#a9b8ca;
+      --accent:#36d1ff;--accent2:#7b61ff
+    }
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:
-      radial-gradient(circle at 20% 10%,rgba(54,209,255,.16),transparent 32%),
-      radial-gradient(circle at 80% 20%,rgba(123,97,255,.18),transparent 34%),var(--bg);color:var(--text)}
+    body{
+      margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 20% 10%,rgba(54,209,255,.16),transparent 32%),
+        radial-gradient(circle at 80% 20%,rgba(123,97,255,.18),transparent 34%),var(--bg);
+      color:var(--text)
+    }
     .wrap{max-width:1100px;margin:auto;padding:22px}
     nav{display:flex;justify-content:space-between;align-items:center;padding:8px 0}
     .brand{font-weight:900;font-size:22px;letter-spacing:.5px}
     .pill{border:1px solid rgba(255,255,255,.12);padding:9px 14px;border-radius:999px;color:var(--muted);font-size:13px}
     .hero{min-height:72vh;display:grid;place-items:center;text-align:center;padding:60px 0}
-    .badge{display:inline-block;padding:8px 13px;border-radius:999px;background:rgba(54,209,255,.1);border:1px solid rgba(54,209,255,.3);color:#bdefff;font-size:13px}
+    .badge{
+      display:inline-block;padding:8px 13px;border-radius:999px;
+      background:rgba(54,209,255,.1);border:1px solid rgba(54,209,255,.3);
+      color:#bdefff;font-size:13px
+    }
     h1{font-size:clamp(42px,8vw,78px);line-height:.98;margin:22px 0 18px}
-    .grad{background:linear-gradient(90deg,var(--accent),#fff,var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .grad{
+      background:linear-gradient(90deg,var(--accent),#fff,var(--accent2));
+      -webkit-background-clip:text;background-clip:text;color:transparent
+    }
     .lead{max-width:700px;margin:auto;color:var(--muted);font-size:18px;line-height:1.65}
     .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
-    .btn{display:inline-block;text-decoration:none;color:#06101b;font-weight:800;padding:14px 22px;border-radius:12px;background:linear-gradient(90deg,var(--accent),#9beaff)}
-    .btn.secondary{color:var(--text);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+    .btn{
+      display:inline-block;text-decoration:none;color:#06101b;font-weight:800;
+      padding:14px 22px;border-radius:12px;
+      background:linear-gradient(90deg,var(--accent),#9beaff);
+      transition:transform .18s ease,box-shadow .18s ease
+    }
+    .btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(54,209,255,.18)}
+    .btn.secondary{
+      color:var(--text);background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12)
+    }
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0 70px}
-    .card{background:rgba(13,27,46,.72);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px}
+    .card{
+      background:rgba(13,27,46,.72);border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;padding:24px
+    }
     .card h3{margin-top:0}.card p{color:var(--muted);line-height:1.6}
-    footer{border-top:1px solid rgba(255,255,255,.08);padding:28px 0;color:var(--muted);font-size:13px;line-height:1.6}
-    @media(max-width:760px){.grid{grid-template-columns:1fr}.hero{min-height:auto;padding:70px 0 50px}}
+    footer{
+      border-top:1px solid rgba(255,255,255,.08);padding:28px 0;
+      color:var(--muted);font-size:13px;line-height:1.6
+    }
+    @media(max-width:760px){
+      .grid{grid-template-columns:1fr}
+      .hero{min-height:auto;padding:70px 0 50px}
+    }
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <nav>
@@ -88,16 +97,27 @@
       <section class="hero">
         <div>
           <span class="badge">Welcome to VeerGame</span>
-          <h1>Play. Explore.<br><span class="grad">Stay Informed.</span></h1>
+
+          <h1>
+            Play. Explore.<br>
+            <span class="grad">Stay Informed.</span>
+          </h1>
+
           <p class="lead">
             Welcome to the official VeerGame web experience. Please review the
             applicable terms, eligibility requirements and local laws before using
             any service.
           </p>
+
           <div class="actions">
-            <!-- Replace these placeholders only with destinations that are
-                 authorized for your service and advertising market. -->
-            <a class="btn" href="https://www.veergame10.com/#/register?invitationCode=44915616518" aria-label="Register / Access Account">Register / Access Account</a>
+            <a
+              id="registerCta"
+              class="btn"
+              href="https://www.veergame26.com/#/register?invitationCode=44915616518"
+              aria-label="Register / Access Account">
+              Register / Access Account
+            </a>
+
             <a class="btn secondary" href="#info">Learn More</a>
           </div>
         </div>
@@ -106,24 +126,60 @@
       <section id="info" class="grid">
         <article class="card">
           <h3>Account Access</h3>
-          <p>Use the official website and follow the applicable account and eligibility requirements.</p>
+          <p>
+            Use the official website and follow the applicable account and
+            eligibility requirements.
+          </p>
         </article>
+
         <article class="card">
           <h3>Responsible Use</h3>
-          <p>Only participate where permitted by applicable law and platform rules. Review limits and terms before use.</p>
+          <p>
+            Only participate where permitted by applicable law and platform
+            rules. Review limits and terms before use.
+          </p>
         </article>
+
         <article class="card">
-          <h3>Terms & Support</h3>
-          <p>Read the current terms, privacy information and support options before creating or using an account.</p>
+          <h3>Terms &amp; Support</h3>
+          <p>
+            Read the current terms, privacy information and support options
+            before creating or using an account.
+          </p>
         </article>
       </section>
     </main>
 
     <footer>
-      © 2026 VeerGame. This page is an informational template. Eligibility,
-      availability and applicable rules vary by jurisdiction. No guarantee of
-      winnings or financial returns is made.
+      © 2026 VeerGame. This page is an informational template.
+      Eligibility, availability and applicable rules vary by jurisdiction.
+      No guarantee of winnings or financial returns is made.
     </footer>
   </div>
+
+  <!--
+    CTA ANALYTICS
+    This records only a real click on the CTA.
+    It does NOT claim that registration, deposit or purchase happened.
+  -->
+  <script>
+    (function () {
+      const cta = document.getElementById("registerCta");
+      if (!cta) return;
+
+      cta.addEventListener("click", function () {
+        try {
+          if (typeof window.fbq === "function") {
+            fbq("trackCustom", "OutboundClick", {
+              destination: "veergame",
+              button_name: "Register / Access Account"
+            });
+          }
+        } catch (e) {
+          // Never block the real CTA because analytics failed.
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
